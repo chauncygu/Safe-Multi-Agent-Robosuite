@@ -15,7 +15,7 @@ Safe MARobosuite tasks are fully cooperative, partialy observable, continuous, a
 
 ## Installation
 
-- Install mujoco accoring to [Robosuite](https://github.com/ARISE-Initiative/robosuite) and [MuJoCo website](https://www.roboti.us/license.html).
+- Install Robosuite accoring to [Robosuite](https://github.com/ARISE-Initiative/robosuite) and [MuJoCo website](https://www.roboti.us/license.html).
 - clone safety multi-agent mujoco to the env path.
 &nbsp;
 
