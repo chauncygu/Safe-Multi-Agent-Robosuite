@@ -1,3 +1,10 @@
+# Safe Multi-Agent Robosuite Benchmark
+
+Safe Multi-Agent Robosuite is an extension of [Robosuite](https://github.com/ARISE-Initiative/robosuite) . We split the control over a robot across multiple controllers of its joints---one or more per controller. For example, the Lift task comes with 3 variants: 2 four-dimensional agents (2x4 Lift), 4 two-dimensional agents (4x2 Lift), and 8 one-dimensional agents (8x1 Lift).
+
+Safe MARobosuite tasks are fully cooperative, partialy observable, continuous, and safety-aware. Its multi-agency makes it a compatible framework for training modular robots which are built of multiple, robust parts, refer to the [work](https://mediatum.ub.tum.de/doc/1506779/1506779.pdf). We adopt the reward setting from Robosuite and present it below.
+
+
 <!--
 # robosuite
 
@@ -34,14 +41,5 @@ This release of **robosuite** contains seven robot models, eight gripper models,
 * **human demonstrations**: utilities for collecting human demonstrations, replaying demonstration datasets, and leveraging demonstration data for learning. Check out our sister project [robomimic](https://arise-initiative.github.io/robomimic-web/);
 * **photorealistic rendering**: integration with advanced graphics tools that provide real-time photorealistic renderings of simulated scenes.
 
-## Citations
-Please cite [**robosuite**](https://robosuite.ai) if you use this framework in your publications:
-```bibtex
-@inproceedings{robosuite2020,
-  title={robosuite: A Modular Simulation Framework and Benchmark for Robot Learning},
-  author={Yuke Zhu and Josiah Wong and Ajay Mandlekar and Roberto Mart\'{i}n-Mart\'{i}n},
-  booktitle={arXiv preprint arXiv:2009.12293},
-  year={2020}
-}
-```
+
 -->
