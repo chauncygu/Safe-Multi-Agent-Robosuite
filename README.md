@@ -1,3 +1,4 @@
+<!--
 # robosuite
 
 ![gallery of_environments](docs/images/gallery.png)
@@ -43,3 +44,4 @@ Please cite [**robosuite**](https://robosuite.ai) if you use this framework in y
   year={2020}
 }
 ```
+-->
