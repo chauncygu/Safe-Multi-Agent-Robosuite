@@ -1,0 +1,29 @@
+<mujoco model="hole">
+  <asset>
+    <texture file="../textures/red-wood.png" type="cube" name="red-wood" />
+    <material name="plate_mat" texture="red-wood" texrepeat="3 3" specular="0.4" shininess="0.1" />
+<!--    <material name="MatPlane" reflectance="0.5" shininess="1" specular="1" texrepeat="60 60" texture="texplane"/>-->
+  </asset>
+  <worldbody>
+    <body>
+      <body name="object">
+        <geom pos="0 0 0" size="0.06 0.17 0.01" type="box" group="0" material="plate_mat" />
+        <geom pos="0.22 0 0" size="0.06 0.17 0.01" type="box" group="0" material="plate_mat" />
+        <geom pos="0.11 0.11 0" size="0.05 0.06 0.01" type="box" group="0" material="plate_mat" />
+        <geom pos="0.11 -0.11 0" size="0.05 0.06 0.01" type="box" group="0" material="plate_mat" />
+
+<!--        <geom size="0.03 0.3" pos="-0.175 -0.4 -0.2" type="cylinder" rgba="1 0.1 0.1 1" group="1" name="obstacle_frame"/> can work-->
+
+      </body>
+<!--      <geom size="0.03 0.3" pos="-0.175 -0.4 -0.2" type="cylinder" rgba="1 0.1 0.1 1" group="1" name="obstacle_frame"/>-->
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 -0.02" name="bottom_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 0.02" name="top_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0.25 0.25 0.1" name="horizontal_radius_site"/>
+    </body>
+<!--    <geom pos="0.81 -0.811 0" size="0.805 0.806 0.01" type="box" group="0" material="plate_mat" />-->
+<!--    <body name='b1' pos="0. 0 0" euler='0 0 40'>-->
+<!--            <freejoint name="b1_fj"/>-->
+<!--            <geom conaffinity="1" condim="3" group="1"  name="wall1" type="box" density=".000001" size="200 100.01 10.7"  material="plate_mat" />-->
+<!--    </body>-->
+  </worldbody>
+</mujoco>
