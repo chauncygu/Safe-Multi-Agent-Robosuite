@@ -10,6 +10,87 @@ Safe MARobosuite tasks are fully cooperative, partialy observable, continuous, a
 <div align=center>
 <center style="color:#000000;text-decoration:underline">Figure.1 Example tasks in Safe MARobosuite Environment. (a): Safe 2x4-Lift, (b): Safe 4x2-Lift,  (c): Safe 8x1-Lift, (d): Safe 2x4-Stack, (e): Safe 4x2-Stack,  (f): Safe 8x1-Stack, (g): Safe 14x1-TwoArmPegInHole, (h): Safe 2x7-TwoArmPegInHole. Body parts of different colours of robots are controlled by different agents. Agents jointly learn to manipulate the robot, while avoiding crashing into unsafe red areas.  </center>
  </div>
+ 
+ 
+
+## Installation
+
+- Install mujoco accoring to [Robosuite](https://github.com/ARISE-Initiative/robosuite) and [MuJoCo website](https://www.roboti.us/license.html).
+- clone safety multi-agent mujoco to the env path.
+&nbsp;
+
+``` Bash
+LD_LIBRARY_PATH=${HOME}/.mujoco/mujoco200/bin;
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so
+```
+
+## Tasks
+``` Bash
+    Lift
+    env_args = {"scenario": "Lift",
+                  "smarobosuite_robots": "panda"
+                  "agent_conf": "2x4",
+                  "agent_obsk": 1,
+                  "episode_limit": 1000}
+                  
+    env_args = {"scenario": "Lift",
+                  "smarobosuite_robots": "panda"
+                  "agent_conf": "4x2",
+                  "agent_obsk": 1,
+                  "episode_limit": 1000}
+                  
+    env_args = {"scenario": "Lift",
+                  "smarobosuite_robots": "panda"
+                  "agent_conf": "8x1",
+                  "agent_obsk": 1,
+                  "episode_limit": 1000}
+                  
+    Stack
+    env_args = {"scenario": "Stack",
+                  "smarobosuite_robots": "panda"
+                  "agent_conf": "2x4",
+                  "agent_obsk": 1,
+                  "episode_limit": 1000}
+                  
+    env_args = {"scenario": "Stack",
+                  "smarobosuite_robots": "panda"
+                  "agent_conf": "4x2",
+                  "agent_obsk": 1,
+                  "episode_limit": 1000}
+                  
+    env_args = {"scenario": "Stack",
+                  "smarobosuite_robots": "panda"
+                  "agent_conf": "8x1",
+                  "agent_obsk": 1,
+                  "episode_limit": 1000}
+                  
+    TwoArmPegInHole
+    env_args = {"scenario": "TwoArmPegInHole",
+                  "smarobosuite_robots": ["panda", "panda"],
+                  "agent_conf": "2x4",
+                  "agent_obsk": 1,
+                  "episode_limit": 1000}
+                  
+    env_args = {"scenario": "TwoArmPegInHole",
+                  "smarobosuite_robots": ["panda", "panda"],
+                  "agent_conf": "4x2",
+                  "agent_obsk": 1,
+                  "episode_limit": 1000}
+                  
+    env_args = {"scenario": "TwoArmPegInHole",
+                  "smarobosuite_robots": ["panda", "panda"],
+                  "agent_conf": "8x1",
+                  "agent_obsk": 1,
+                  "episode_limit": 1000}
+
+    
+```
+
+
+
+
+
+ 
 
 
 <!--
