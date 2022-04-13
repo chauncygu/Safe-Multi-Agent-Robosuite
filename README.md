@@ -1,6 +1,6 @@
 # Safe Multi-Agent Robosuite Benchmark
 
-Safe Multi-Agent Robosuite is an extension of [Robosuite](https://github.com/ARISE-Initiative/robosuite) . We split the control over a robot across multiple controllers of its joints---one or more per controller. For example, the Lift task comes with 3 variants: 2 four-dimensional agents (2x4 Lift), 4 two-dimensional agents (4x2 Lift), and 8 one-dimensional agents (8x1 Lift).
+Safe Multi-Agent Robosuite is an extension of [Robosuite](https://github.com/ARISE-Initiative/robosuite) . We split the control over a robot across multiple controllers of its joints---one or more per controller. For example, the Lift task comes with 3 variants: 2 four-dimensional agents (2x4 Lift), 4 two-dimensional agents (4x2 Lift), and 8 one-dimensional agents (8x1 Lift). (This repository is under actively development. We appreciate any constructive comments and suggestions)
 
 Safe MARobosuite tasks are fully cooperative, partialy observable, continuous, and safety-aware. Its multi-agency makes it a compatible framework for training modular robots which are built of multiple, robust parts, refer to the [work](https://mediatum.ub.tum.de/doc/1506779/1506779.pdf). We adopt the reward setting from Robosuite and present it below.
 
