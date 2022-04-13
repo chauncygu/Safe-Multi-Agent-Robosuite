@@ -4,6 +4,13 @@ Safe Multi-Agent Robosuite is an extension of [Robosuite](https://github.com/ARI
 
 Safe MARobosuite tasks are fully cooperative, partialy observable, continuous, and safety-aware. Its multi-agency makes it a compatible framework for training modular robots which are built of multiple, robust parts, refer to the [work](https://mediatum.ub.tum.de/doc/1506779/1506779.pdf). We adopt the reward setting from Robosuite and present it below.
 
+ <div align=center>
+ <img src="https://github.com/chauncygu/Safe-Multi-Agent-Robosuite/blob/main/docs/safe-multi-agent-robosuite.png" width="850"/> 
+ </div>
+<div align=center>
+<center style="color:#000000;text-decoration:underline">Figure.1 Example tasks in Safe MARobosuite Environment. (a): Safe 2x4-Lift, (b): Safe 4x2-Lift,  (c): Safe 8x1-Lift, (d): Safe 2x4-Stack, (e): Safe 4x2-Stack,  (f): Safe 8x1-Stack, (g): Safe 14x1-TwoArmPegInHole, (h): Safe 2x7-TwoArmPegInHole. Body parts of different colours of robots are controlled by different agents. Agents jointly learn to manipulate the robot, while avoiding crashing into unsafe red areas.  </center>
+ </div>
+
 
 <!--
 # robosuite
