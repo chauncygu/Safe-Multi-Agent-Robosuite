@@ -127,7 +127,7 @@ class MujocoMulti(MultiAgentEnv):
 
     def __init__(self, batch_size=None, **kwargs):
         super().__init__(batch_size, **kwargs)
-        self.scenario = kwargs["env_args"]["scenario"]  # e.g. Ant-v2
+        self.scenario = kwargs["env_args"]["scenario"]  # e.g. Lift
         self.smarobosuite_robots = kwargs["env_args"]["smarobosuite_robots"]  # e.g. panda
         self.agent_conf = kwargs["env_args"]["agent_conf"]  # e.g. '2x3'
 
