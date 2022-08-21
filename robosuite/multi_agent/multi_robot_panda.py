@@ -42,9 +42,9 @@ class MujocoEnv_():
 
         # options = {}
         # options["env_name"] = "TwoArmHandover"
-        self.scenario = scenario["env_args"]["scenario"]  # e.g. Ant-v2
+        self.scenario = scenario["env_args"]["scenario"]  # e.g. Lift
 
-        self.smarobosuite_robots = scenario["env_args"]["smarobosuite_robots"]  # e.g. Ant-v2
+        self.smarobosuite_robots = scenario["env_args"]["smarobosuite_robots"]  # e.g. Lift
 
 
         # print("++++++++++++++++self.scenario:", self.scenario)
