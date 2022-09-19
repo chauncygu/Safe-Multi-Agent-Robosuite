@@ -24,6 +24,11 @@ LD_LIBRARY_PATH=${HOME}/.mujoco/mujoco200/bin;
 LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so
 ```
 
+``` Bash
+pip install -e .
+```
+
+
 ## Quick Start
 
 ``` Bash
