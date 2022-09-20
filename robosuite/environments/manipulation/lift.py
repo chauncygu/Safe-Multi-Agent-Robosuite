@@ -181,6 +181,13 @@ class Lift(SingleArmEnv):
         # object placement initializer
         self.placement_initializer = placement_initializer
 
+        # todo: smooth cost
+        self.output_max = np.array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5])
+        self.output_min = np.array([-0.5, - 0.5, - 0.5, - 0.5, - 0.5, - 0.5, - 0.5])
+        self.input_max = np.array([1., 1., 1., 1., 1., 1., 1.])
+        self.input_min = np.array([-1., - 1., - 1., - 1., - 1., - 1., - 1.])
+        self.flat_actions_add = []
+
         super().__init__(
             robots=robots,
             env_configuration=env_configuration,
@@ -234,12 +241,10 @@ class Lift(SingleArmEnv):
             float: reward value
         """
         reward = 0.
-        cost = 0.
-
 
         # sparse completion reward
         if self._check_success():
-            reward = 2.25
+            reward = 20.25
 
         # use a shaping reward
         elif self.reward_shaping:
@@ -248,7 +253,6 @@ class Lift(SingleArmEnv):
             cube_pos = self.sim.data.body_xpos[self.cube_body_id]
             gripper_site_pos = self.sim.data.site_xpos[self.robots[0].eef_site_id]
             dist = np.linalg.norm(gripper_site_pos - cube_pos)
-
             reaching_reward = 1 - np.tanh(10.0 * dist)
             reward += reaching_reward
 
@@ -260,23 +264,69 @@ class Lift(SingleArmEnv):
         if self.reward_scale is not None:
             reward *= self.reward_scale / 2.25
 
-
-
         #todo: compute cost
-        diif = self._gripper_to_target(gripper=self.robots[0].gripper, target=self.cube)
-
         obstacle_pos = self.model.mujoco_arena.table_offset[2]  # table_height
         gripper_pos = self._eef_xpos
+        # print("gripper_height:", gripper_height)
+        # print("gripper_height[2]:", gripper_height[2])
+        # print("table-height:", self.model.mujoco_arena.table_offset[2])
+        xdist = obstacle_pos - self._eef_xpos[2]
+        # print("xdist:", xdist)
+        # print("np.array(action) < 1======", np.any(action > 0.9))
+        # np.any(action > 1.4) or np.any(action < -1.4)
 
-        xdist = self._eef_xpos[2] - obstacle_pos
-
-
-        if (np.abs(xdist) < 0.02):
+        if (np.abs(xdist) < 0.001):
             obj_cost = 1
         else:
             obj_cost = 0
+        if obj_cost > 0:
+            self.sim.model.geom_rgba[5] = [1.0, 0, 0, 1.0]
+        else:
+            self.sim.model.geom_rgba[5] = [1, 1, 1, 1]
+
+        # cost = obj_cost
+
+        # todo: smootheness cost
+        velocities = action[0:7]
+        goal_vel = self.scale_action(velocities)
+        goal_vel = np.clip(goal_vel, -1, 1)
+        # todo: smothness cost
+        smoothness_cost = 0
+        reg_smoothness_cost = 0
+        self.flat_actions_add.append(goal_vel)
+        if len(self.flat_actions_add) > 1:
+            diff_velocity_value = self.flat_actions_add[len(self.flat_actions_add) - 1] - self.flat_actions_add[
+                len(self.flat_actions_add) - 2]
+            smoothness_cost = np.linalg.norm(diff_velocity_value, ord=2)
+        if smoothness_cost > 0.99:
+            reg_smoothness_cost = 1
+        # smoothness_cost = SingleArmEnv(Manipulator).smoothness_cost    #JointVelocityController.set_goal_cost(cost, velocities)
+
+        cost = obj_cost + reg_smoothness_cost
+        # print("cost:", cost)
 
         return reward, cost
+
+    def scale_action(self, action):
+        """
+        Clips @action to be within self.input_min and self.input_max, and then re-scale the values to be within
+        the range self.output_min and self.output_max
+
+        Args:
+            action (Iterable): Actions to scale
+
+        Returns:
+            np.array: Re-scaled action
+        """
+
+        self.action_scale = abs(self.output_max - self.output_min) / abs(self.input_max - self.input_min)
+        self.action_output_transform = (self.output_max + self.output_min) / 2.0
+        self.action_input_transform = (self.input_max + self.input_min) / 2.0
+
+        action = np.clip(action, self.input_min, self.input_max)
+        transformed_action = (action - self.action_input_transform) * self.action_scale + self.action_output_transform
+
+        return transformed_action
 
     def _load_model(self):
         """
@@ -286,7 +336,7 @@ class Lift(SingleArmEnv):
 
         # Adjust base pose accordingly
         xpos = self.robots[0].robot_model.base_xpos_offset["table"](self.table_full_size[0])
-
+        # print("table-xpos:", xpos)
         self.robots[0].robot_model.set_base_xpos(xpos)
 
         # load model for table top workspace
@@ -309,7 +359,7 @@ class Lift(SingleArmEnv):
             "shininess": "0.1",
         }
         redwood = CustomMaterial(
-            texture="WoodBlue", # WoodRed
+            texture="WoodRed",
             tex_name="redwood",
             mat_name="redwood_mat",
             tex_attrib=tex_attrib,
@@ -317,8 +367,8 @@ class Lift(SingleArmEnv):
         )
         self.cube = BoxObject(
             name="cube",
-            size_min=[0.020, 0.020, 0.020], #[0.020, 0.020, 0.020],  # [0.015, 0.015, 0.015],
-            size_max=[0.022, 0.022, 0.022], #[0.022, 0.022, 0.022],  # [0.018, 0.018, 0.018])
+            size_min=[0.020, 0.020, 0.020],  # [0.015, 0.015, 0.015],
+            size_max=[0.022, 0.022, 0.022],  # [0.018, 0.018, 0.018])
             rgba=[1, 0, 0, 1],
             material=redwood,
         )
@@ -331,8 +381,8 @@ class Lift(SingleArmEnv):
             self.placement_initializer = UniformRandomSampler(
                 name="ObjectSampler",
                 mujoco_objects=self.cube,
-                x_range=[-0.03, 0.03],
-                y_range=[-0.03, 0.03],
+                x_range=[-0.0, 0.0],
+                y_range=[-0.0, 0.0],
                 rotation=None,
                 ensure_object_boundary_in_range=False,
                 ensure_valid_placement=True,
@@ -441,8 +491,6 @@ class Lift(SingleArmEnv):
         """
         cube_height = self.sim.data.body_xpos[self.cube_body_id][2]
         table_height = self.model.mujoco_arena.table_offset[2]
-
-
 
         # cube is higher than the table top above a margin
         return cube_height > table_height + 0.04
