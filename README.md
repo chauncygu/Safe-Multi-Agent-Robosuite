@@ -1,3 +1,10 @@
+# Demos
+
+|![](https://github.com/chauncygu/Safe-Multi-Agent-Robosuite/blob/main/docs/demos/ai-unsafe-twoarmpgeinhole.gif)|![](https://github.com/chauncygu/Safe-Multi-Agent-Robosuite/blob/main/docs/demos/ai-safe-twoarmpgeinhole.gif)|
+| :---: | :---: | 
+|  A demo denotes <b>unsafe</b> performance using <a href="https://arxiv.org/abs/2109.11251">HAPPO</a> on Safe MARobosuite-TwoArmPegInHole-2x7 tasks.</center> | A demo denotes <b>safe</b> performance using <a href="http://arxiv.org/abs/2110.02793">MAPPO-Lagrangian</a> on Safe MARobosuite-TwoArmPegInHole-2x7 tasks.</center> | 
+
+
 # Safe Multi-Agent Robosuite Benchmark
 
 Safe Multi-Agent Robosuite is an extension of [Robosuite](https://github.com/ARISE-Initiative/robosuite) . We split the control over a robot across multiple controllers of its joints---one or more per controller. For example, the Lift task comes with 3 variants: 2 four-dimensional agents (2x4 Lift), 4 two-dimensional agents (4x2 Lift), and 8 one-dimensional agents (8x1 Lift). (This repository is under actively development. We appreciate any constructive comments and suggestions)
